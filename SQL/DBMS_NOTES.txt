@@ -1,0 +1,108 @@
+4 types of joint:
+1)Inner join-A intersection B(common from A and B)
+2)left join- Left Table + Inner join
+3)Right join-Right Table + Inner join
+4)Full join-Left Table + Right Table + Inner join
+
+Sub-Query-Query inside another query(Subquery is a query whose result are used by another query)
+Q.Find average salary filter employees where salaru is greater than avg salary'
+select employees,salary from table where salary>(select avg(salary) from table 
+
+Transaction: A Transaction is a sequence of sql operations executed as a single unit where either all changes are commited or all rolled back(ALL ARE NOTHING)
+
+Start transaction
+	SQL Statement 1
+	SQL Statement 2
+	SQL Statement 3
+	SQL Statement 4
+COMMIT (Save changes)
+OR ROLLBACK
+
+Indexting:it helps sql find data faster,just like a book index or page number
+without index:
+	start from page 1
+	read every page
+	very slow
+with index:
+	go to index
+	directly jump there
+
+Drawbacks of indexing:
+	Don't use when the table is small
+	It occupies some space
+	Insert,Update,Delete becomes slow after indexing
+
+SQL COMMANDS:
+	1)DDL(Data Definition Language) -- STRUCTURE (DESIGN)
+	2)DML(Data Manipulation Language) -- DATA (ROWS)
+	3)DQL(Da -- FETCH DATA
+	4)DCL -- SECURITY
+	6)TCL -- TRANSACTIONS
+
+1)DDL(Data Definition Language) Commands:
+		1)CREATE
+		2)ALTER
+		3)DROP
+		4)RENAME
+		5)TRUNCATE
+
+2)DML(Data Manipulation Language) commands:
+		1)INSERT
+		2)UPDATE
+		3)DELETE
+
+3)DQL(Data Query Language) commands:
+		1)SELECT
+
+4)DCL(Data Control Language) commands:
+		1)GRANT syntax-> GRANT SELECT IN customers To user1;
+		2)REVOKE syntax-> REVOKE SELECT IN customers to user1;
+5)TCK(Transaction Control Language) commands:
+		1)COMMIT
+		2)ROLLBACK
+		3)SAVEPOINT
+		
+#Q.1FIND TOTAL HOURS WORKED BY EACH EMPLOYEE
+SELECT e.emp_id, e.emp_name, SUM(ep.hours_worked) AS total_hours FROM employees e JOIN employee_projects ep ON e.emp_id = ep.emp_id
+GROUP BY e.emp_id, e.emp_name;
+
+#Q.2FIND TOTAL HOURS SPENT ON EACH PROJECT
+SELECT p.project_id, p.project_name, SUM(ep.hours_worked) AS total_hours FROM projects p JOIN employee_projects ep ON p.project_id = ep.project_id GROUP BY p.project_id, p.project_name;
+
+#Q.3FIND DEPARTMENT WISE TOTAL WORKING HOUR
+SELECT e.department, SUM(ep.hours_worked) AS total_hours FROM employees e JOIN employee_projects ep ON e.emp_id = ep.emp_id GROUP BY e.department;
+
+
+NORMALISATION : Converting a messy data into a good data(BAD TABLE-------->>GOOD TABLE)
+	WHY NORMALISATION:
+		1)Data manipulation
+		2)Insert anomaly
+		3)Update anomaly
+		4)Delete anomaly
+
+A)1NF:Each column should contain atomic(single) values
+	I)One Shell-->one value       +------------+--------+---------+
+       II)Atmoic values	          | student_id | name   | subject |
+				      			  +------------+--------+---------+
+		                          |          1 | amit   | math    |
+				                  |          1 | amit   | sql     |
+	                              |          2 | pankaj | java    |
+				                  +------------+--------+---------+
+
+B)2NF:Table must follow 1NF and no partial dependencies
+
+
+SQL LITE:
+	--Inbuilt in python
+	--small
+	--within a file
+
+SQLITE is a lightweight database that stores data in a single file and is inbuilt into python
+	COMMANDS:
+		connect()-->connect database
+		cursor()-->run SQL
+		execute()-->execute SQL
+		commit()-->save changes
+		close()-->close connection
+
+use execute.script to write all commands at once

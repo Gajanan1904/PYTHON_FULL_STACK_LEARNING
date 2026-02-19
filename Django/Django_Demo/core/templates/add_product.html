@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Add Product</title>
+</head>
+<body>
+
+<h2>Add Product</h2>
+
+<form id="productForm">
+    <input type="text" id="name" placeholder="Product Name"><br><br>
+    <input type="number" id="price" placeholder="Price"><br><br>
+    <button type="submit">Add Product</button>
+</form>
+
+<script>
+    document.getElementById("productForm").addEventListener("submit", function(e) {
+        e.preventDefault();
+
+        fetch("/products/", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify({
+                name: document.getElementById("name").value,
+                price: document.getElementById("price").value
+            })
+        })
+        .then(response => response.json())
+        .then(data => {
+            alert("Product Added");
+            console.log(data);
+        });
+    });
+</script>
+
+</body>
+</html>
