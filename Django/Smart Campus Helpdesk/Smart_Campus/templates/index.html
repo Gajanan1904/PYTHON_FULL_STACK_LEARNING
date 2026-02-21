@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Smart Campus Helpdesk</title>
+
+<style>
+body{
+    font-family: Arial;
+    padding: 40px;
+    background:#f5f5f5;
+}
+
+.container{
+    max-width:600px;
+    margin:auto;
+    background:white;
+    padding:20px;
+    border-radius:10px;
+}
+
+input, textarea, select{
+    width:100%;
+    padding:10px;
+    margin:8px 0;
+}
+
+button{
+    padding:10px;
+    background:#4CAF50;
+    color:white;
+    border:none;
+    cursor:pointer;
+}
+
+.ticket{
+    background:#eee;
+    padding:10px;
+    margin-top:10px;
+}
+</style>
+
+</head>
+
+<body>
+
+<div class="container">
+
+<h2>🎓 Smart Campus Helpdesk</h2>
+
+<h3>Create Ticket</h3>
+
+<input id="title" placeholder="Title">
+<textarea id="description" placeholder="Description"></textarea>
+
+<select id="category">
+<option value="">Select Category</option>
+<option value="network">Network</option>
+<option value="electricity">Electricity</option>
+<option value="maintenance">Maintenance</option>
+</select>
+
+<select id="priority">
+<option value="">Select Priority</option>
+<option value="low">Low</option>
+<option value="medium">Medium</option>
+<option value="high">High</option>
+</select>
+
+<button onclick="createTicket()">Submit Ticket</button>
+
+<hr>
+
+<h3>All Tickets</h3>
+<div id="ticketList"></div>
+
+</div>
+
+<script>
+
+// change if your API url different
+const API_URL = "http://127.0.0.1:8000/tickets/"
+
+async function createTicket(){
+
+    const data = {
+        title: document.getElementById("title").value,
+        description: document.getElementById("description").value,
+        category: document.getElementById("category").value,
+        priority: document.getElementById("priority").value
+    }
+
+    const res = await fetch(API_URL,{
+        method:"POST",
+        headers:{
+            "Content-Type":"application/json"
+        },
+        body: JSON.stringify(data)
+    })
+
+    if(res.ok){
+        alert("Ticket Created")
+        loadTickets()
+    }
+}
+
+async function loadTickets(){
+
+    const res = await fetch(API_URL)
+    const tickets = await res.json()
+
+    const box = document.getElementById("ticketList")
+    box.innerHTML=""
+
+    tickets.forEach(t=>{
+        box.innerHTML += `
+        <div class="ticket">
+            <b>${t.title}</b><br>
+            ${t.description}<br>
+            Category: ${t.category} | Priority: ${t.priority}
+        </div>`
+    })
+}
+
+loadTickets()
+
+</script>
+
+</body>
+</html>
