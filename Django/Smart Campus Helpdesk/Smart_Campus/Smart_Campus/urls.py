@@ -18,7 +18,6 @@ from django.contrib import admin
 from django.urls import path
 from tickets.views import ticket_list,ticket_detail
 from rest_framework_simplejwt.views import(TokenObtainPairView,TokenRefreshView)
-from tickets.views import home
 from tickets import views
 
 
@@ -26,13 +25,5 @@ urlpatterns = [
     path('tickets/', ticket_list),
     path('tickets/<int:id>/', ticket_detail),
     path('api/token/',TokenObtainPairView.as_view()),
-    path('api/token/refresh/',TokenRefreshView.as_view()),
-    path('admin/', admin.site.urls),
-    path('', home), 
-    path('', views.home),
-    path('',views.login_page,name="login"),
-    path('dashboard/',views.dashboard,name="dashboard"),
-    path('create-ticket/',views.home),
-    path('logout/', views.logout_page),
-    
+    path('api/token/refresh/',TokenRefreshView.as_view()),  
 ]

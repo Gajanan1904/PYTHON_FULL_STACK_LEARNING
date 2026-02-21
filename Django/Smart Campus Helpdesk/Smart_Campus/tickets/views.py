@@ -70,42 +70,8 @@ def ticket_detail(request,id):
         tickets.delete()
         return Response({'message':'deleted successfully'},status=204)
     
-def home(request):
-    return render(request, 'index.html')
-
-from django.contrib.auth import authenticate, login, logout
-from django.shortcuts import render, redirect
-from django.contrib.auth.decorators import login_required
 
 
-def login_page(request):
-    if request.method == "POST":
-        username = request.POST["username"]
-        password = request.POST["password"]
-
-        user = authenticate(request, username=username, password=password)
-
-        if user:
-            login(request, user)
-            return redirect("dashboard")
-        else:
-            return render(request, "login.html", {"error": "Invalid credentials"})
-
-    return render(request, "login.html")
-
-
-@login_required
-def dashboard(request):
-    return render(request, "dashboard.html")
-
-@login_required
-def home(request):
-    return render(request, "index.html")
-
-
-def logout_page(request):
-    logout(request)
-    return redirect("login")
     
     
 

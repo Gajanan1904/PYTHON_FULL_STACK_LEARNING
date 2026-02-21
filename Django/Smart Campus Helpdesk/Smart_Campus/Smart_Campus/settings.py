@@ -55,13 +55,12 @@ MIDDLEWARE = [
 
 ROOT_URLCONF = 'Smart_Campus.urls'
 
-import os
 
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
 
-        'DIRS': [os.path.join(BASE_DIR, 'templates')],
+        'DIRS': [],
 
         'APP_DIRS': True,
 
@@ -152,6 +151,3 @@ REST_FRAMEWORK = {
         'rest_framework.authentication.SessionAuthentication'
     ),
 }
-
-LOGIN_URL = '/'
-LOGIN_REDIRECT_URL = '/dashboard/'
